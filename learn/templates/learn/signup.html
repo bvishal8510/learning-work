@@ -1,0 +1,121 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+<title>signup</title>
+<link rel="stylesheet" type="text/css" href="{% static 'portal/signuppage.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <script>
+    $(document).ready(function() {
+        $("#id_username").change(function () {
+            var username = $(this).val();
+            $('#error_signup_username').empty();
+            console.log("tgtgtgt");
+            $.ajax({
+                url: '{% url 'validate_username' %}',
+                data: {
+                    'username': username
+                },
+                dataType: 'json',
+                success: function (data) {
+                    if (data.is_taken) {
+                        document.getElementById('error_signup_username').innerHTML="this user already exist";
+                    }
+                }
+
+            })
+        }) ;
+        $("#id_email").change(function () {
+            var email = $(this).val();
+            console.log("tgtgtgt");
+            $('#error_signup_email').empty();
+            $.ajax({
+                url: '{% url 'validate_email' %}',
+                data: {
+                    'email': email
+                },
+                dataType: 'json',
+                success: function (data) {
+                    if (data.is_taken) {
+                        document.getElementById('error_signup_email').innerHTML="this email id already exist";
+                    }
+                }
+
+            })
+        }) ;
+
+    })
+    </script>
+    <script>
+        $(document).ready(function(){
+            $('id_username').click(function(){
+                $('error_signup_username').empty();
+            })
+        })
+     </script>
+</head>
+<body>
+    <canvas id="drawing_area"></canvas>
+    <script src="{% static 'portal/javascript/animation.js' %}"></script>
+    <script src="{% static 'portal/javascript/validation.js' %}"></script>
+
+    <div class="back">
+        <img src="{% static 'portal/images/background.jpg' %}">
+        <p class="text"><span>PHOICS</span><br>
+        UPDATE<br>
+        EDIT<br>
+        SHARE<br></p>
+    </div>
+    <div class="sign-up form">
+        <h1>SIGN-UP</h1>
+        <p>
+            {% if request.user.is_authenticated %}
+                <h3>first log out</h3>
+                <a href="{% url 'logout' %}">logout</a>
+            {% else %}
+                <form name="signForm" method='post' onsubmit="return validateForm()" novalidate>
+                    {% csrf_token %}
+                    <div class="details">
+                        <div class="row">
+                            <label for="name">{{ form.username.label_tag }}</label><br>
+                            {{ form.username }}<br>
+                                <p id="error_signup_username" style="color: #ff0000">{{ form.username.errors }}
+                        </div>
+
+                    <div class="row">
+                            <label for="name">{{ form.email.label_tag }}</label><br>
+                            {{ form.email }}<br>
+                                <p id="error_signup_email" style="color: #ff0000">{{ form.email.errors }}</p>
+                        </div>
+
+                    <div class="row">
+                            <label for="name">{{ form.password1.label_tag }}</label><br>
+                            {{ form.password1 }}<br>
+                                <p id="error_signup_password"style="color: #ff0000">{{ form.password1.errors }}</p>
+                        </div>
+
+                    <div class="row">
+                            <label for="name">{{ form.password2.label_tag }}</label><br>
+                            {{ form.password2 }}<br>
+                                <p id="error_signup_conf_password" style="color: #ff0000">{{ form.password2.errors }}</p>
+                        </div>
+
+                        {% if messages %}
+                            <ul class="messages" style="color: red;list-style-type: none">
+                            {% for message in messages %}
+                                <li{% if messages.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                            {% endfor %}
+                            </ul>
+                        {% endif %}
+                    </div>
+                    <button class="button" type="submit">SUBMIT</button>
+                    <p class="ques">already have an account? <a href="{% url 'login' %}">login</a></p>
+                </form>
+            {% endif %}
+        </p>
+    </div>
+</body>
+</html>

@@ -1,0 +1,246 @@
+{% load staticfiles %}
+{% load humanize %}
+{% load social_share %}
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>newsfeed</title>
+    <style>
+
+        .fa {
+           font-size: 50px;
+           cursor: pointer;
+           user-select: none;
+         }
+
+        .fa:hover {
+          color: darkblue;
+        }
+
+
+    </style>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="{% static 'portal/newsfeed.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'portal/search.css' %}">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"
+        integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"
+        integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
+        crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function(){
+            $(".comment").on('keypress', function(event) {
+                key = event.keyCode;
+                if (key == 13) {
+                    var imgid;
+                    var comment;
+                    imgid = $(this).attr("img_data");
+                    comment = $(this).val();
+                    $(this).val('');
+                    if (comment != ''){
+                        $.get('/phoics/comment/', {'imgid': imgid, 'comment': comment}, function (data) {
+                        var data1 =  JSON.parse(data);
+                        for (x in data1) {
+                            $('#show_user' + imgid).append(data1[x]);
+                            $('#show_user' + imgid).append("&nbsp;&nbsp;&nbsp;&nbsp;");
+    }
+    $('#show_user' + imgid).append("<br>");
+                    })
+                    }
+                }
+            })
+        });
+        $(document).ready(function(){
+        $("#user-search-here").keyup(function () {
+            var search_data = $('#user-search-here').val();
+            var url = '';
+             console.log("search");
+               $.ajax({
+                url: '{% url 'search' %}',
+                data: {
+
+                    'search_data': search_data
+                },
+
+                success: function (data) {
+                    var a = "";
+                          $('.printhere').empty();
+                          for (x in data) {
+                              a = data[x];
+                     $('.printhere').append( "<a class=\"dropdown-item\" href=\"http://127.0.0.1:8000/phoics/profile/"+ a +"/\">" + data[x] +"</a>");
+    }
+                }
+
+            })
+        });
+    });
+
+        $(document).ready(function() {
+             $(".display1").on('click', function () {
+            var imgid = $(this).attr("data-imgid");
+
+            $.ajax({
+                url: '{% url 'like' %}',
+                data: {
+
+                    'imgid': imgid
+                },
+
+                success: function (data) {
+                          $('#count_like' + imgid).html(data.count_like);
+                          var status = data.state_image;
+                          if (status == 0){
+
+                              $('#like' + imgid).toggleClass('fa-heart', false);
+                              $('#like' + imgid).toggleClass('fa-heart-o', true);
+                          }
+                          else {
+                               $('#like' + imgid).toggleClass('fa-heart-o', false);
+                              $('#like' + imgid).toggleClass('fa-heart', true);
+                          }
+
+                }
+
+            })
+        })
+               })
+
+    function myFunction1(x) {
+        console.log("from 0 to 1");
+        x.classList.toggle("fa-heart");
+     }
+    function myFunction2(x) {
+        console.log("1 to 0");
+        x.classList.toggle("fa-heart-o");
+    }
+
+    </script>
+</head>
+<body>
+<nav class="navbar navbar-expand-md navbar-dark bg-dark sticky-top">
+       <div class="container top">
+        <a class="navbar-brand" href="{% url 'newsfeed' %}">PHOICS</a>
+           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+  </button>
+           <div class="collapse navbar-collapse " id="navbarSupportedContent">
+        <ul class="navbar-nav my-2 my-lg-0" style="float:right">
+            <li>
+    <div class="dropdown show form-group ">
+        <input id="user-search-here" class="dropdown-toggle form-control"  placeholder="search" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <div class="printhere dropdown-menu" aria-labelledby="user-search-here"></div>
+    </div>
+</li>
+
+<li class="nav-item"><a href="{% url 'newsfeed' %}" class="nav-link"><i class="fa fa-home" aria-hidden="true"></i> Newsfeed</a></li>
+<li class="nav-item>"><a class="nav-link" href="{% url 'profile' user.username %}">	<i class="fa fa-user " aria-hidden="true"></i> Profile</a></li>
+<li class="nav-item"><a href="{% url 'logout' %}" class="nav-link"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a></li>
+        </ul>
+               </div>
+    </div>
+</nav>
+  <h6 class="searching"></h6>
+    {% if request.user.is_authenticated %}
+        {% csrf_token %}
+        <div class="container">
+            <div class="row">
+            {% for img in images %}
+
+                {% if img.status == "PUBLIC" %}
+
+                    <div class= "offset-md-3 col-md-6">
+                        <div class="card">
+                        <ul class="nav">
+                          {% for obj in profile %}
+                              {% if obj.user == img.user %}
+                                  <li class="nav-item"><img src="{{ obj.profile_pic.url }}" style="width:50px;height: 50px;border-radius: 50%; padding:0.5rem"></li>
+                              {% endif %}
+                                  {% endfor %}
+
+                            <a href="{% url 'profile' img.user.username %}" class="card-body">
+                                <li class="nav-item"> <h4 class="card-title">{{ img.user }}</h4></li></a>
+                         </ul>
+                        <a href="{{ img.document.url }}"><img src="{{ img.document.url }}" class="card-img" ></a>
+                        <div class="card-body">
+                        <p class="date time ">{{ img.uploaded_at|naturaltime|capfirst }}</p>
+                        <div class="display" img-id="{{ img.id }}">
+
+
+                        <small class="text-muted" id="count_like{{ img.id }}">{{ img.like_user.count}}</small> likes<br>
+                        </div>
+                        </div>
+                    <p id="user{{ img.id }}"></p>
+                     <ul class="nav">
+                    <li class="nav-item">
+                    <span class="nav-link">
+                        {% if user in img.like_user.all %}
+                      <i  class="display1 fa fa-heart nav-link" aria-hidden="true" id="like{{ img.id }}" data-imgid="{{ img.id }}"> Like</i>
+                      <br><br>
+                        {% else %}
+                        <i  class="display1 fa fa-heart-o nav-link" aria-hidden="true" id="like{{ img.id }}" data-imgid="{{ img.id }}"> Like</i>
+                        <br><br>
+                            </span>
+                         {% endif %}
+                    </li>
+                        <li class="nav-item">
+                            <span class="nav-link" data-toggle="collapse" href="#collapseExample{{img.pk }}" aria-expanded="false" aria-controls="collapseExample">
+                                <i class="fa fa-comment-o" aria-hidden="true"> Comment</i>
+                            </span>
+                        </li>
+                     </ul>
+                        <div class="collapse" id="collapseExample{{ img.pk }}">
+
+                        <p id="show_user{{img.pk}}" style="display: inline"></p>
+
+                        {% for com in comments %}
+
+                            {% if com.document == img %}
+                                <p class="cmmnt_view">{{com.user}} : {{com.comment}}</p>
+                            {% endif %}
+
+                        {% endfor %}
+                        <input  class="comment" type="text" img_data="{{img.pk}}" placeholder="Add a comment..."><br>
+{#                        <p style="text-align: center;" {% post_to_facebook img.document.url "Share to facebook!" %}></p>#}
+                        </div>
+                        </div>
+                    <br>
+                    </div>
+                {% endif %}
+            {% endfor %}
+            </div>
+        </div>
+        <footer>
+            {% if images.has_previous %}
+                <a href="?page={{ images.previous_page_number }}"><button>Previous</button></a>
+            {% endif %}
+            Page {{ images.number }} of {{ images.paginator.num_pages }}.
+            {% if images.has_next %}
+                <a href="?page={{ images.next_page_number }}"><button>Next</button></a>
+            {% endif %}
+            <br><br>PAGE:
+            {%  for num in page_range %}
+
+                {%  if images.number == num %}
+                    <a href="?page={{num}}">{{num}}</a>
+                {% else %}
+                    <a href="?page={{num}}"><button>{{num}}</button></a>
+                {% endif %}
+            {% endfor %}
+        </footer>
+
+    {% endif %}
+
+</body>
+</html>

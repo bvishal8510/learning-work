@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+    @import url('https://fonts.googleapis.com/css?family=Raleway');
+    div{
+	    margin-top:20vh;
+	    margin-left:10vw;
+    }
+    p{
+	    font-family: 'Raleway';
+	    font-size:150%;
+    }
+    span{
+	     font-size:400%;
+    }
+    img{
+	    height:10vh;
+	    width:10vw;
+    }
+</style>
+</head>
+<body>
+    <div>
+{#        <img src="{% url 'portal/images/error_img.svg' %}">#}
+	    <p><span>ERROR {{ name }} :</span><br> {{ title }}</p>
+    </div>
+</body>
+</html>

@@ -1,0 +1,164 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway');
+body{
+	background-color:#fff;
+	margin: 0;
+}
+
+
+
+a{
+	text-decoration: none;
+	color:black;
+}
+
+div.feed1{
+	position: relative;
+	margin-top:3vh;
+	margin-left: 25vw;
+    width:50vw;
+    background-color: white;
+    align-items: center;
+    border:1px solid #90949c;
+    border-radius: 5px;
+}
+.feed1 img{
+	margin-top:2vh;
+	width:50vw;
+	margin-bottom: 1vh;
+	border-bottom:2px solid #90949c;
+	border-top:2px solid #90949c;
+}
+p{
+	font-weight:bold;
+	margin-bottom: 0;
+	margin-top:0;
+    margin-left:3vw;
+	font-family:'Raleway';
+	cursor:pointer;
+}
+p.name{
+	font-size:150%;
+}
+p.date{
+	margin-top:1vh;
+	margin-bottom:1vh;
+    color:#90949c;
+}
+label{
+	margin-top:45vh;
+	margin-left:15vw;
+	font-family:'Raleway' light;
+}
+
+input{
+	margin-top:1vh;
+	margin-bottom:1vh;
+	margin-left:3vw;
+	width:20vw;
+}
+footer{
+	padding: 2%;
+    background-color: white;
+    text-align: center;
+    font-family: Raleway;
+    margin-top: 5vh;
+    margin-bottom: 0;
+    bottom: 0;
+}
+/*@media only screen and (max-width:1050px){*/
+
+
+/*}*/
+/*@media only screen and (max-width:780px){*/
+
+/*p{*/
+		/*font-size:90%;*/
+	/*}*/
+
+/*}*/
+/*@media only screen and (max-width:560px){*/
+
+/*}*/
+/*@media only screen and (max-width:490px){*/
+	/*p{*/
+		/*font-size:60%;*/
+	/*}*/
+
+    /*p.name{*/
+		/*font-size:90%;*/
+	/*}*/
+
+/*}*/
+/*@media only screen and (max-width:360px){*/
+	/*h2{*/
+		/*font-size:95%;*/
+	/*}*/
+	/*p{*/
+		/*font-size:50%;*/
+	/*}*/
+	/*p.name{*/
+		/*font-size:100%;*/
+	/*}*/
+
+/*}*/
+button{
+	background-color:transparent;
+	box-shadow: none;
+	width:5vw;
+	border:2px solid black;
+	border-radius: 2px;
+	cursor: pointer;
+}
+button:hover{
+	background-color: black;
+	color: white;
+}
+
+.time{
+	margin-bottom: 0;
+}
+.card{
+	border:2px solid rgba(0,0,0,0.125);
+}
+/*.navbar{*/
+    /*background-color: #000;*/
+    /*top:0;*/
+    /*position:fixed;*/
+
+/*}*/
+/*.top a{*/
+    /*color: #fff;*/
+/*}*/
+
+/*.nav-link{*/
+	/*cursor:pointer;*/
+/*}*/
+.comment{
+	width: 100%;
+	border-radius: 0;
+	border:none;
+
+background-color: #eee;
+}
+.cmmnt_view{
+	border-top:1px solid #eee;
+	padding-left: 20px;
+}
+.nav-item{
+	height:30px;
+}
+.card-body{
+	padding-bottom: 0.25rem;
+}
+.bg-dark {
+    background-color: #000 !important;
+}
+.navbar-dark .navbar-nav .nav-link {
+    color: rgba(255,255,255, 1);
+}
+.sticky-top {
+    position: -webkit-sticky;
+    position: fixed;
+    top: 0;
+    z-index: 1020;
+}

@@ -1,0 +1,130 @@
+@import url('https://fonts.googleapis.com/css?family=Josefin+Sans');
+@import url('https://fonts.googleapis.com/css?family=Raleway');
+
+body{
+	background:white url("images/background.jpg");
+	background-repeat: no-repeat;
+	background-size: cover;
+    }
+h1{
+	text-align: center;                      /* /////////// PHOICS HEADING//////////*/
+	width:50%;
+	margin-left:15%;
+	font-family: 'Raleway', sans-serif;
+	color: white;
+	font-size: 5em;
+	letter-spacing:50px;
+    }
+p{
+	margin-left: 25%;                    /*//////////////paragraph in middle-"home to one's photos"////////*/
+	width:50%;
+    color:white;
+    line-height: 110%;
+    padding: 10px;
+    text-align: center;
+    font-family: 'Raleway', sans-serif;
+    font-size:20px;
+    word-wrap: break-word;
+    }
+span{
+	font-size:25px;
+    }
+div.container{                                       /*/////////////////boundary box////////////////////////*/
+   border: 5px solid white;
+    margin:7%;
+	margin-left:20%;
+	margin-right:12%;
+	height:50%;
+	width:50vw;
+	padding: 5%;
+	animation-name: box;
+	animation-duration: 6s;
+    }
+
+@-webkit-keyframes box{                              /*///////////////////animation to box////////////////////*/
+	0%{ border:none; }
+	25%{border-top:5px solid white;}
+	50%{border-bottom:5px solid white;}
+    75%{border-right:5px solid white;}
+    100%{border-left:5px solid white;}
+}
+
+li{                                                      /*//////////////////////buttons-login signup/////////////////*/
+	display: inline;
+	text-align: center;
+	border: 3px solid white;
+	color:white;
+	padding:2% 8% 2% 8%;
+	font-family: Raleway;
+	cursor: pointer;
+
+    }
+li:hover{
+
+}
+a{
+    text-decoration:none;
+    color:white;
+}
+ul{
+	position: relative;
+	padding-left: 12%;
+	margin-bottom: 5%;
+	width:50%;
+	margin-left: 25%;
+	box-sizing: border-box;
+	}
+div.hline1{                                 /*//////////////top horizontal line ///////////////*/
+	width:25%;
+	height:1px;
+	background-color: white;
+	margin-left: 35%;
+	animation-name: expand;
+	animation-name: 2s;
+	animation-iteration-count: 3;
+    }
+   @-webkit-keyframes expand{
+   	from{width:0%;}
+   	to{width:25%;}
+   }
+div.hline2{                                     /*////////////////////bottom horizontal line/////////////////*/
+	width:30%;
+	height:1px;
+	background-color: white;
+	margin-left:35%;
+    }
+@media only screen and (max-width: 900px) {                    /*///////////////////////media query for buttons(to make responsive)//////////*/
+    li {
+        display:block;
+    }
+}
+@media only screen and (max-width:1280px){
+	h1{
+		letter-spacing:20px;
+		font-size:3.8em;
+	}
+}
+@media only screen and (max-width:780px){
+	h1{
+		letter-spacing:15px;
+		font-size:3em;
+	}
+}
+@media only screen and (max-width:590px){                  /*////////////////////////media query for heading phoics (to make responsive)////////////*/
+	h1{
+		letter-spacing:10px;
+		font-size:2.5em;
+	}
+}
+@media only screen and (max-width:450px){
+	h1{
+		letter-spacing: 7px;
+		font-size:2em;
+	}
+}
+@media only screen and (max-width:350px){
+	h1{
+		letter-spacing: 5px;
+		font-size:1.5em;
+	}
+}

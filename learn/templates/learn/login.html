@@ -1,0 +1,59 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+<title>login</title>
+<link rel="stylesheet" type="text/css" href="{% static 'portal/signuppage.css' %}">
+</head>
+<body>
+    <canvas id="drawing_area"></canvas>
+    <script src="{% static 'portal/javascript/animation.js' %}"></script>
+    <script src="{% static 'portal/javascript/Validation.js' %}"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <div class="back">
+        <img src="{% static 'portal/images/background.jpg' %}">
+        <p class="text"><span>PHOICS</span><br>
+        UPDATE<br>
+        EDIT<br>
+        SHARE<br></p>
+    </div>
+    <div class="login form">
+        <h1>LOG-IN</h1>
+        <p>
+             {% if request.user.is_authenticated %}
+                 <label>FIRST LOG OUT</label>
+                 <a href="{% url 'logout' %}">logout</a>
+             {% else %}
+                 <form name="loginForm" method="post" onsubmit="return loginValidate() " novalidate>
+                     {% csrf_token %}
+                     <div class="log details">
+                         <div class="row">
+                             <label id="id_username">{{ form.username.label_tag }}</label>
+                             <p id="id_username"> {{ form.username }}</p>
+                             <p style="color: red" id="error_login_username"></p>
+                             {# <p id="print"></p> #}
+                         </div>
+                         <div class="row">
+                             <label>{{ form.password.label_tag }}</label>
+                             <p id="id_password">{{ form.password }}</p>
+                             <p style="color: red" id="error_login_password" style="color: red"></p>
+
+                         </div>
+                         {% if form.errors %}
+                             <p style="color: red">your username and  password does not <br>match. please try again </p>
+                         {% endif %}
+                         <br>
+                     </div>
+                     <button class=" button" type="submit">LOG-IN</button>
+                     <p class="log ques"><a href="{% url 'password_reset' %}">Forgot password?</a><br>
+                         New User? <a href="{% url 'signup' %}">signup</a>
+                     </p>
+                 </form>
+             {% endif %}
+        </p>
+    </div>
+</body>
+</html>

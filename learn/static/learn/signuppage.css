@@ -1,0 +1,158 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway');
+
+body{
+
+	background-color:#02b46d;
+	margin:0;
+   }
+   canvas{
+   	top:0;                                          /*/////////////canvas animation///////////*/
+   	position:fixed;
+	border:1px solid black;
+	height:100vh;
+	width:100vw;
+	margin:0;
+}
+div.back{
+	position:fixed;                         /*//////////////////////background div withn image and phoics///////////////////*/
+	margin: 0;
+	top:0;
+}
+
+img{
+	position:absolute;
+	width:70vw;                                 /*///////////////background image/////////////////*/
+	height:100vh;
+}
+p.text{
+	position:absolute;
+	font-size: 150%;
+	color:white;
+	margin-left:5vw;                                 /*//////////////////////////////text on  background//////////////////*/
+	margin-top:10vh;
+    width:20vw;
+    font-family:'Raleway', thin;
+}
+span{
+	font-size: 400%;
+}
+div.form{
+	position:absolute;
+	margin-top:10vh;
+	margin-left:55vw;                                     /*//////////////////////////card for signup and login////////////////*/
+	width:30vw;
+	/*height:70vh;*/
+	background-color: white;
+	box-shadow: 3px 3px 4px rgba(0, 0, 0, .6);
+}
+div.login{
+	margin-top:20vh;
+}
+div.details{
+	display:table;
+	margin-left:5vw;                         /*///////////////table for details////////////////*/
+
+}
+div.row{
+	display:table-row;
+}
+h1{
+	margin:5%;
+	margin-left:35%;
+	font-family: 'Raleway';           /*////////////////////////////////heading on top card//////////////////*/
+    margin-bottom: 5%;
+    color: #02b46d;
+}
+
+
+label{                                        /*////////////////label/////////////*/
+	font-family:'Raleway';
+	font-size:100%;
+}
+input{
+	border:0px;
+	border-bottom:2px solid grey;
+   padding-top: 1%;                           /*////////////////input field//////////////*/
+    padding-left: 2%;
+    font-size:120%;
+    width:23vw;
+}
+input:focus{
+	outline:none;
+	border-bottom:2px solid  #02b46d;
+}
+#title:focus label{
+	font-size: 100%;
+}
+.home{
+	text-decoration: none;
+	color:white;
+}
+button.button{
+	width:18vw;
+	margin-left:7vw;
+	margin-top: 0px;                          /*/////////////////////////button//////////////*/
+	margin-bottom: 0px;
+    background-color:black;
+    padding:2% 4% 2% 4%;
+    font-family: 'Raleway';
+    color:white;
+  /*  box-shadow: 0 1px 4px rgba(0, 0, 0, .6); */
+    text-align:center;
+    cursor: pointer;
+   /* box-sizing: border-box;*/
+
+}
+p.button:hover{
+	border:2px solid black;
+	background-color: white;
+	color:black;
+}
+p.button:active{
+	border:3px solid #273b09;
+	/*background-color:#273b09;*/
+}
+p.ques{
+
+	margin:2vh 7vw 2vh ;
+	font-family: 'Raleway';
+	line-height: 150%;
+
+}
+
+
+@media only screen and (max-width:750px) {
+
+	button.button {
+		margin-top: 3%;
+	}
+
+	p.ques {
+		font-size: 70%;
+	}
+
+	/*//////////////////////////media query for responsiveness///////////////*/
+	div.form {
+		margin-top: 20vh;
+		width: 40vw;
+	}
+
+	h1 {
+		font-size: 100%;
+	}
+
+	div.details {
+		font-size: 70%;
+	}
+
+	p.text {
+		font-size: 70%;
+	}
+
+	.log {
+		font-size: 150%;
+	}
+}
+ul{
+	color: red;
+}

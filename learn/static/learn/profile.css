@@ -1,0 +1,240 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway');
+body{
+
+	margin: 0;
+}
+.navbar{
+	background-color: #000;
+	border-bottom: 1px solid #eee;
+
+}
+.navbar a{
+	color:#fff;
+}
+
+.dropdown-menu a{
+	color: black;
+}
+
+.icon{
+	margin-left:10vw;
+	float: left;
+	border:3px solid black;
+	font-family: Raleway thin;
+	padding:0.5%;
+	letter-spacing: 0.2em;
+	margin-top:1.5vh;
+	margin-right: 0.2em;
+}
+h2.heading{
+    float:left;
+    margin-top:3vh;                             /*///////////////phoics heading////////////////*/
+    /*margin-left:10vw; */
+	letter-spacing: 0.5em;
+    font-family: Raleway medium;
+
+}
+.btn{
+			border-radius: 0;
+			background-color: transparent;
+			border:4px solid #000;
+			color:#000;
+		}
+		.btn:hover{
+			background-color: #000;
+			color:#fff;
+		}
+
+.user-profile{
+	text-align: center;
+
+}
+.user-profile >div{
+	font-family: 'Raleway';
+}
+.details{
+	grid-column:2/4;            /*//////////////////////div containing user name and upload and aedit button//////////*/
+}
+
+.dp{
+   align-content:center;
+}
+img{
+	width:200px;
+	height:200px;
+	overflow: hidden;
+    border-radius: 50%;
+ /*   margin-left:15%; */                          /*////////////////profile pic////////////////*/
+    /*height: 100%*/
+}
+/*.show {*/
+    /*display: block!important;*/
+/*}*/
+/*button{
+	background-color:transparent;
+	box-shadow: none;
+	padding:2%;
+	width:10vw;                                   ////////////////////buttons////////////////
+	border:2px solid black;
+	border-radius: 2px;
+	cursor: pointer;
+}
+button:hover{
+	background-color: black;
+	color: white;
+}*/
+.feeds{
+	margin-top: 1rem;
+	margin-right: 0;
+}
+.user-detail{
+	text-align: center;
+	justify-content: center;
+	padding-top: 30px;
+}
+.feed{
+	/*position: absolute;*/
+	width:100%;
+	border-radius:0;             /*////////img tag for individual image uploaded/////////*/
+    /*height:100%;*/
+    margin:0;
+}
+.image{
+	position: relative;
+}
+
+.hide{
+	position: absolute;
+	width:0%;
+	height: 100%;
+	background-color:rgba(0,0,0,0.5);
+	overflow: hidden;
+    transition: all  1s;
+}
+.image:hover >div.hide{
+	width:100%;
+}
+/*.hide{
+	visibility: hidden;
+	cursor:pointer;
+	color:white;
+	font-family: 'Raleway';
+}*/                                         /*//////////////////////icons over images for delete, edit and reset//////////////*/
+
+.edit{
+	position:absolute;
+	right:5%;
+	top:45%;
+	color:white;
+}
+.status{
+	position:absolute;
+	top:45%;
+	left:45%;
+	color:white;
+}
+.date{
+	position: absolute;
+	bottom:10%;
+	left:5%;
+	color:white;
+}
+.delete{
+
+	position: absolute;
+	top:45%;
+	left:5%;
+	color:white;
+}
+a{
+	text-decoration: none;
+	color:black;
+}
+#confirm-box{
+
+	display: none;
+	position:fixed;
+	background-color: white;                        /*/////////////////////////confirmation box////////////////*/
+	text-align: center;
+    padding:1%;
+	width:30vw;
+	height: 20vh;
+	top:0;bottom:0;left:0;right:0;
+    margin:auto;
+	border:1px solid  black;
+	box-shadow: 10px 3px 9px 1px #333;
+
+}
+.mr-auto {
+     margin-right: 0!important;
+}
+.btn-search{
+	border:none;
+	background-color: transparent;
+	color:#fff;
+}
+.navbar-inverse .navbar-nav .nav-link {
+    color: rgba(255,255,255,1);
+}
+.col{
+	padding-right:0;
+	padding-left: 0;
+}
+.gallery-wrapper {
+           overflow: hidden;
+           }
+
+       .grid-item {
+        padding-bottom: 0rem;
+        }
+@media only screen and (max-width:768px){
+
+    .hidden{
+    	display: none;
+    }
+}
+@media only screen and (max-width:576px){
+	/*.form-inline .form-control{
+        display:none;
+    }*/
+	.user-detail{
+		padding-top: 0;
+	}
+
+
+}
+@media (max-width: 575px){}
+
+.navbar-toggleable-md>.container {
+   margin-left:20px;
+   margin-right: 20px;
+}
+.user-profile{
+	padding-top: 20px;
+}
+.btn{
+			border-radius: 0;
+			background-color: transparent;
+			border:4px solid #000;
+			color:#000;
+		}
+		.btn:hover{
+			background-color: #000;
+			color:#fff;
+		}
+		.modal-header{
+			text-align: center;
+		}
+		.text-center{
+			margin-top: 10px;
+			width:100%;
+			max-height:600px;
+			overflow: hidden;
+		}
+		.rounded{
+			width:100%;
+			max-height: 600px;
+		}
+		.modal-body{
+			text-align: center;
+		}

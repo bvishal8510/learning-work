@@ -1,0 +1,22 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>frontpage</title>
+<link rel="stylesheet" type="text/css" href="{% static 'portal/front_page.css'%}">
+</head>
+<body>
+    <div class="container">
+        <div class="hline1"></div>
+            <h1>PHOICS</h1>
+            <p><span>Home to one's best photos</span><br>
+            UPLOAD  ,  EDIT  ,  SHARE</p>
+        <ul>
+        <a href="{% url 'signup' %}"><li class="su"> WELCOME </li> </a>
+{#        <a href="{% url 'profile' user.username %}"><li class="li"> login</li> </a>#}
+        </ul>
+        <div class="hline2"></div>
+    </div >
+</body>
+</html>
