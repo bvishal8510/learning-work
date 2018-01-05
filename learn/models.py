@@ -12,7 +12,13 @@ from PIL import ImageFilter, ImageOps
 from io import BytesIO
 from django.core.files.uploadedfile import InMemoryUploadedFile
 import sys
-
+# from pygments.lexers import get_all_lexers
+# from pygments.styles import get_all_styles
+#
+#
+# LEXERS = [item for item in get_all_lexers() if item[1]]
+# LANGUAGE_CHOICES = sorted([(item[1][0], item[0]) for item in LEXERS])
+# STYLE_CHOICES = sorted((item, item) for item in get_all_styles())
 
 def get_profile_name(instance, filename):    # to give unique id to profile pic uploaded by using uuid
     ext = filename.split('.')[-1]
@@ -49,7 +55,7 @@ choice6 = ((1, "None"), (2, "Aqua"), (3, "Seaform"), (4, "Grayscale"),
 
 
 class Document(models.Model, object):                  # all details comming about a particular picture uploaded                                                      #  get saved in this table
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
     status = models.CharField(max_length=7, choices=choice1, default="PUBLIC")
     width = models.IntegerField(blank=True, default=500, help_text="Enter positive value ")
     height = models.IntegerField(blank=True, default=500, help_text="Enter positive value ")
@@ -156,8 +162,8 @@ class Document(models.Model, object):                  # all details comming abo
 #         storage.delete(path)
 
 class Comments(models.Model):
-    user = models.ForeignKey(User)
-    document = models.ForeignKey(Document)
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    document = models.ForeignKey(Document,on_delete=models.CASCADE)
     comment = models.TextField(max_length=225)
     uploaded_at = models.DateTimeField(auto_now_add=True)
 

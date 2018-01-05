@@ -18,7 +18,8 @@ from django.contrib.auth.views import login
 import json
 from django.http import JsonResponse
 from django.views import View
-
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 # from django.shortcuts import (render_to_response)
 # from django.template import RequestContext
 #
@@ -62,7 +63,8 @@ class front_page(View):
 
 class home(View):
     form_class = DocumentForm
-    # @login_required
+
+    @method_decorator(login_required)
     def get(self,request,username):
         form= self.form_class()
         user = User.objects.get(username=username)
@@ -212,6 +214,7 @@ def activate(request, uidb64, token):
 
 class newsfeed(View):
 
+    @method_decorator(login_required)
     def get(self,request):
         documents = Document.objects.order_by('-uploaded_at')
         user = User.objects.get(username=request.user.username)
@@ -284,25 +287,18 @@ class comment(View):
 def doc_delete(request):
     pk = 0
     username=''
-    print("11212")
-    print(request.GET)
     if request.method == 'GET':
         pk = request.GET["pk"]
-        print("1")
 
     if pk:
-        print("2")
         username = request.GET['user']
-        print("4")
         removex = get_object_or_404(Document, pk=pk)
-        print("3")
         removex.delete()
-        print("5")
     return HttpResponseRedirect(reverse('profile', args=(username,)))
     # return redirect('profile/' username)
 
 
-# def doc_delete(request, pk, username):
+# def doc_delete(request, pk, usernampe):
 #     removex = get_object_or_404(Document, id=pk)
 #     removex.delete()
 #     return HttpResponseRedirect(reverse('profile', args=(username,)))
