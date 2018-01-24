@@ -15,22 +15,11 @@
                     <h3 style="text-align: center;font-family: 'Lato', sans-serif;margin: 0px;padding: 5px 10px;font-size: 24px;">Verify Your Account</h3>
                 </div>
             </div>
-            <div style="padding: 15px;">
-                <div style="text-align: center;">
-                    {% autoescape off %}
-                        Hi {{ user.username }},<br>
-                        Please click on the link below to confirm your registration:<br>
-                        http://{{ domain }}{% url 'activate' uidb64=uid token=token %}<br>
-                    {% endautoescape %}
-                </div>
-            </div>
+            <!--<div style="padding: 15px;">-->
+                <!--<div style="text-align: center;">-->
+                    <!--<a href="%link%" style="text-decoration:none;">Click Here To Verify Your Account</a>-->
+                <!--</div>-->
+            <!--</div>-->
         </div>
     </body>
 </html>
-
-
-{#{% autoescape off %}#}
-{#    Hi {{ user.username }},#}
-{#    Please click on the link below to confirm your registration:#}
-{#    http://{{ domain }}{% url 'activate' uidb64=uid token=token %}#}
-{#{% endautoescape %}#}

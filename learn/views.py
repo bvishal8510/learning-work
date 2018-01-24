@@ -20,6 +20,7 @@ from django.http import JsonResponse
 from django.views import View
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+from django.core.mail import EmailMessage
 # from django.shortcuts import (render_to_response)
 # from django.template import RequestContext
 #
@@ -149,7 +150,9 @@ def signup(request):
                 to_mail = [user.email]
                 # fail_silently "false", then if error in sending email it will raise -
                 # smtplib.SMTPException, SMTPServerDisconnected, SMTPDataError,etc.
-                send_mail(subject, message, from_mail, to_mail, fail_silently=False)
+                msg = EmailMessage(subject, message, from_mail, to_mail)
+                msg.content_subtype = 'html'
+                msg.send()
                 return render(request, 'learn/email_sent.html')
 
     else:
