@@ -135,24 +135,20 @@ def signup(request):
                 subject = 'Activate Your phoics Account'
                 # subject with email is send
                 message = render_to_string('learn/account_activation_email.html', {
-                    """
-                    uid contain user id encoded in base 64
-                    token help to make link as it work only once
-                    user use to get user form information
-                    domain - 127.0.0.1:8000
-                    """
                     'user': user,
                     'domain': current_site.domain,
                     'uid': urlsafe_base64_encode(force_bytes(user.pk)),
                     'token': account_activation_token.make_token(user),
                 })
                 from_mail = EMAIL_HOST_USER
-                to_mail = [user.email]
+                # to_mail = [user.email]
+                to_mail = user.email
                 # fail_silently "false", then if error in sending email it will raise -
                 # smtplib.SMTPException, SMTPServerDisconnected, SMTPDataError,etc.
-                msg = EmailMessage(subject, message, from_mail, to_mail)
+                msg = EmailMessage(subject, message, from_mail, [to_mail])
                 msg.content_subtype = 'html'
                 msg.send()
+                # send_mail(subject, message, from_mail, [to_mail], fail_silently = False,)
                 return render(request, 'learn/email_sent.html')
 
     else:
