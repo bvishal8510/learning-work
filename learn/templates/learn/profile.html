@@ -5,7 +5,7 @@
     <title>Profile Page</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="{% static 'portal/profile.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'learn/profile.css' %}">
 {#    <link rel="stylesheet" type="text/css" href="{% static 'portal/search.css' %}">#}
 {#    <script src="{% static 'portal/javascript/Validation.js' %}"></script>  #}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -226,21 +226,22 @@
                          <a href="{{ obj.document.url }}"><img class="feed img-thumbnail" src="{{ obj.document.url }}"></a>
                  {% endif %}
                   </div>
-{#                     <div id="deletebutton" style="display: none; background-color: red; height: auto; width: auto; margin-left: 70%; margin-top: 80%; z-index: 4;">#}
-{#                            <p style="color: black;">#}
-{#                                Are you sure you want to delete the pic?#}
-{#                            </p>#}
+                     <div id="deletebutton" style="display: none; background-color: red; height: auto; width: auto; margin-left: 70%; margin-top: 80%; z-index: 4;">
+                            <p style="color: black;">
+                                Are you sure you want to delete the pic?
+                            </p>
 {#                            <a href="{% url "Doc_delete" username obj.pk %}">#}
-{#                             <button>Yes</button>#}
-{#                            </a>#}
-{#                         console.log();#}
-{#                            <button class="delete" data="{{obj.pk}}" user="{{ username }}">Yes</button>#}
-{#                         console.log();#}
-{#                            <button onclick="alert1()">No</button>#}
-{#                        </div>#}
+                         <a href="{% url "Doc_delete" %}">
+                             <button>Yes</button>
+                         </a>
+                         console.log();
+                            <button class="delete" data="{{obj.pk}}" user="{{ username }}">Yes</button>
+                         console.log();
+                            <button onclick="alert1()">No</button>
+                        </div>
                     {% endif %}
              {% endfor %}
-{#             <br>#}
+             <br>
          </div>
          </div>
          </div>

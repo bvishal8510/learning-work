@@ -6,7 +6,7 @@ from django.db import models
 import uuid
 import os
 from django.contrib import messages
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from PIL import Image
 from PIL import ImageFilter, ImageOps
 from io import BytesIO

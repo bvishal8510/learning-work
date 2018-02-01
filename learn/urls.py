@@ -2,7 +2,7 @@ from django.conf.urls import url, include
 from django.contrib.auth import views as built_views
 # from django.contrib import admin
 from learn import views
-from learn.views import home,newsfeed,comment
+from learn.views import home, newsfeed, comment, check_login, signup
 from django.contrib.auth.views import password_reset
 # from django.conf import settings
 # from django.conf.urls.static import static
@@ -13,10 +13,11 @@ urlpatterns = [
     url(r'^$', newsfeed.as_view(), name='newsfeed'),
 
     url(r'^profile/(?P<username>\w+)/$', home.as_view(), name='profile'),
+    # url(r'^profile/<str:username>/$', home.as_view(), name='profile'),
 
     url(r'^upload/(?P<username>\w+)/$', views.model_form_upload, name='model_form_upload'),
 
-    url(r'^login/$', views.check_login, name='login'),
+    url(r'^login/$', check_login.as_view(), name='login'),
 
     # if user will logout it will render to login page
     url(r'^logout/$', built_views.logout, {'next_page': 'newsfeed'}, name='logout'),
@@ -24,12 +25,11 @@ urlpatterns = [
     url(r'^information/(?P<username>\w+)/$', views.user_info, name="user_info"),
 
 
-    url(r'^signup/$', views.signup, name='signup'),
+    url(r'^signup/$', signup.as_view(), name='signup'),
 
     url(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
         views.activate,
         name='activate'),
-
     # url(r'^frontpage/$', views.front_page, name='front_page'),
 
     url(r'^passwordreset/$', password_reset,
@@ -43,8 +43,7 @@ urlpatterns = [
     url(r'^reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
         built_views.password_reset_confirm,
         {'template_name': 'forget/password_reset_confirm.html',
-         'post_reset_redirect': 'login'},
-        name='password_reset_confirm'),
+         'post_reset_redirect': 'login'}, name='password_reset_confirm'),
 
     url(r'^profile/(?P<username>\w+)/edit/(?P<pk>\d+)$', views.doc_update, name='Doc_edit'),
 
