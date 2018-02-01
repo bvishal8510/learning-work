@@ -10,4 +10,4 @@ class ProfileModelTests(TestCase):
     def test1(self):
 
         user_profile = Profile(First_Name='Varsha', Last_Name='Baghel')
-        self.assertIs(user_profile.First_Name, 'Varsha')
+        self.assertIs(user_profile.First_Name == 'Varsha', True)
