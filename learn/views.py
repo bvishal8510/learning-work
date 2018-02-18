@@ -21,19 +21,9 @@ from django.views import View
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.core.mail import EmailMessage
-# from django.shortcuts import (render_to_response)
-# from django.template import RequestContext
-#
-#
-# from django.core.files.storage import FileSystemStorage
-# from django.conf import settings
 from django.http import HttpResponse
-"""
- it will work when user is logged out
- it will redirect to the user on login page 
- having next parameter default have SETTING.LOGIN_URL
-"""
-
+from django.core.files import File
+import os
 
 # @login_required
 # def home(request, username):
@@ -138,7 +128,7 @@ class home(View):
                             'profile_pic': profile_pic,
                             'username': username,
                             'user_image_count': user_image_count,'form':form})
-
+#
     def post(self,request,username):
         form = self.form_class(data=request.POST, files=request.FILES)
         if username == request.user.username:
@@ -146,23 +136,16 @@ class home(View):
                 upload_details = form.save(commit=False)
                 upload_details.user = request.user
                 upload_details.save()
+                # photo = request.FILES['photo'].file.read()
+                # image = Document.objects.create(user=request.user, document=photo )
+                # image = Document(user=request.user, document=photo )
+                # image.save()
+                # comm = Comments.objects.create(user=request.user, document=image, comment=com)
                 return redirect(reverse('profile', kwargs={'username': username}))
             else:
                 form = self.form_class()
-        # user = User.objects.get(username=username)
-        # user_image_count = user.document_set.all().count()
-        # documents = Document.objects.order_by('-uploaded_at')
-        # profile_pic = Profile.objects.filter(user=User.objects.get(username=username))
         return render(request, 'learn/profile.html',
-                      # {'documents': documents,
-                      #  'profile_pic': profile_pic,
-                      #  'username': username,
-                      #  'user_image_count': user_image_count,
                       {'form': form})
-
-
-
-
 
 
 # def front_page(request):
@@ -213,43 +196,6 @@ class home(View):
 #     else:
 #         form = SignUpPage()
 #     return render(request, 'learn/signup.html', {'form': form})
-def signup(request):
-    if request.user.is_authenticated:
-        return redirect('newsfeed')
-    if request.method == 'POST':
-        form = SignUpPage(request.POST)
-        if form.is_valid():
-            email = form.cleaned_data.get('email')
-            User.objects.filter(email=email).count()
-            # if count is greater than zero it means this email id already exist
-            if email and User.objects.filter(email=email).count() > 0:
-
-                messages.error(request, 'this email-id already register', extra_tags='alert')
-            else:
-                user = form.save(commit=False)
-                user.is_active = False
-                user.save()
-                # get_current_site used to get the url of current page
-                current_site = get_current_site(request)
-                subject = 'Activate Your phoics Account'
-                # subject with email is send
-                message = render_to_string('learn/account_activation_email.html', {
-                    'user': user,
-                    'domain': current_site.domain,
-                    'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-                    'token': account_activation_token.make_token(user),
-                })
-                from_mail = EMAIL_HOST_USER
-                # to_mail = [user.email]
-                to_mail = user.email
-                # fail_silently "false", then if error in sending email it will raise -
-                # smtplib.SMTPException, SMTPServerDisconnected, SMTPDataError,etc.
-                msg = EmailMessage(subject, message, from_mail, [to_mail])
-                msg.content_subtype = 'html'
-                msg.send()
-                # send_mail(subject, message, from_mail, [to_mail], fail_silently = False,)
-                return render(request, 'learn/email_sent.html')
-
 
 
 # when user click on email link then this function execute
@@ -622,5 +568,3 @@ def effect_image(request):
         'img_source': str(img.document)
     }
     return JsonResponse(data)
-
-

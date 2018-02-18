@@ -9,8 +9,9 @@ from django.contrib import messages
 from django.urls import reverse
 from PIL import Image
 from PIL import ImageFilter, ImageOps
-from io import BytesIO
+from io import BytesIO, StringIO
 from django.core.files.uploadedfile import InMemoryUploadedFile
+from django.core.files.base import ContentFile
 import sys
 # from pygments.lexers import get_all_lexers
 # from pygments.styles import get_all_styles
@@ -30,7 +31,9 @@ class Profile(models.Model):                # all details comming as user's prof
     Last_Name = models.CharField(max_length=100, blank=True)
     City = models.CharField(max_length=30, blank=True)
     DOB = models.DateTimeField(null=True, blank=True)
-    profile_pic = models.ImageField(upload_to=get_profile_name, default='profile_pic/default_profile.jpg')
+    profile_pic = models.ImageField(
+        # upload_to=get_profile_name, default='profile_pic/default_profile.jpg'
+        )
     bio = models.TextField(max_length=500, blank=True)
     email_confirmed = models.BooleanField(default=False)
 
@@ -61,7 +64,9 @@ class Document(models.Model, object):                  # all details comming abo
     rotate = models.CharField(max_length=15, choices=choice4, default='NONE')
     blur = models.CharField(max_length=5, choices=choice5, default='n')
     effect = models.IntegerField(choices=choice6, default=1)
-    document = models.ImageField(upload_to=get_file_name)
+    document = models.ImageField(
+        # upload_to=get_file_name
+        )
     uploaded_at = models.DateTimeField(auto_now_add=True)
 
     like_or_not = models.IntegerField(default=0)
@@ -80,6 +85,7 @@ class Document(models.Model, object):                  # all details comming abo
         im = Image.open(self.document)    #opens a particular image
 
         output = BytesIO()                #file is written into memory
+
         im = im.resize((self.width, self.height))
         if self.flip == 'horizon':
             im = im.transpose(Image.FLIP_LEFT_RIGHT)
@@ -136,11 +142,13 @@ class Document(models.Model, object):                  # all details comming abo
                     R, G, B = c+100, c+100, c
                     im.putpixel((i, j), (R, G, B))
         im.save(output, format='JPEG', quality=100)   # saving the image into the file in memory
-        output.seek(0)
 
-        self.document = InMemoryUploadedFile(output, 'ImageField', "%s.jpg" % self.document.name.split('.')[0],
+        # self.document = InMemoryUploadedFile(output, 'ImageField', "%s.jpg" % self.document.name.split('.')[0],
+        #                                      'image/jpeg', sys.getsizeof(output), None)
+        self.document = InMemoryUploadedFile(output, None, "%s.jpg" % self.document.name.split('.')[0],
                                              'image/jpeg', sys.getsizeof(output), None)
-
+        
+        temp_name = self.document.name
         try:
             this = Document.objects.get(id=self.id)
             if this.document == self.document:
@@ -149,7 +157,14 @@ class Document(models.Model, object):                  # all details comming abo
                 this.document.delete(save=False)
         except:
             pass  # when new image
-        super(Document, self).save()
+        
+        self.document.save(
+            temp_name,
+            content=ContentFile(output.getvalue()),
+            save=False
+        )
+        print(self.document)
+        super(Document, self).save(force_insert=False,)
 
 
 # @receiver(post_delete, sender=Document)
