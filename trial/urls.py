@@ -27,6 +27,7 @@ urlpatterns = [
     url(r'^$', front_page.as_view(), name='front_page'),
     # url(r'^', include(router.urls)),
     url(r'^phoics/', include('learn.urls')),
+    url(r'^messages/', include('django_messages.urls')),
     # url(r'^api-auth/', include('rest_framework.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
