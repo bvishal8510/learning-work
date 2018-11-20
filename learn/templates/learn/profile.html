@@ -123,8 +123,8 @@
                 {% for obj in profile_pic %}
                      {% if obj.user.username == username %}
                          <div class="col-md-3">
-                            <div class="dp"> <a href="{{ obj.profile_pic.url }}">
-                                <img src="{{ obj.profile_pic.url }}"></a>
+                            <div class="dp"> <a href="{{ obj.profile_pic }}">
+                                <img src="{{ obj.profile_pic }}"></a>
                             </div>
                          </div>
 
