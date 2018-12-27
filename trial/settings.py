@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 
 import os
 
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -169,4 +170,4 @@ DEFAULT_FROM_EMAIL = 'phoics100@gmail.com'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-# CONVERSATION_MESSAGE_FORM = 'my_app.forms.MyMessageForm'
+# CONVERSATION_MESSAGE_FORM = 'learn.forms.MessageForm'
