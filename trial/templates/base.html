@@ -1,0 +1,19 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>PHOICS</title>
+        {% block head_title %}
+        {% endblock %}
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="{% static "conversation/css/conversation.css" %}">
+        <script src="{% static "conversation/js/conversation.js" %}"></script>
+        <link href="https://fonts.googleapis.com/css?family=Lato|Montserrat" rel="stylesheet">
+    </head>
+    <body>
+        {% block main %}
+        {% endblock %}
+    </body>
+</html>
