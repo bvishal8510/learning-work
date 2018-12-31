@@ -80,4 +80,11 @@ class UpdateForm(forms.ModelForm):                     # renders a form update p
 #         model = Comments
 #         fields = ('comment', )
 
+class MessageForm(forms.Form):                 # renders a signup form to user with the help of template
+    talk = forms.CharField(max_length=500, widget=forms.TextInput(
+        attrs={'placeholder': 'Enter messgage',}))
+
+    class Meta:
+        fields = ('talk',)
+
 
