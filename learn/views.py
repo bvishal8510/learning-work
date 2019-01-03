@@ -9,7 +9,7 @@ from django.template.loader import render_to_string
 from trial.settings import EMAIL_HOST_USER
 from .tokens import account_activation_token
 from django.shortcuts import render, redirect, get_object_or_404, reverse
-from .models import Document, Profile, Comments
+from .models import Document, Profile, Comments, Filelo
 from .forms import DocumentForm, SignUpPage, Info, UpdateForm, SearchUser
 from django.contrib import messages
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
@@ -24,6 +24,13 @@ from django.core.mail import EmailMessage
 from django.http import HttpResponse
 from django.core.files import File
 import os
+
+import smtplib
+from os.path import basename
+from email.mime.application import MIMEApplication
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+from email.utils import COMMASPACE, formatdate
 
 # @login_required
 # def home(request, username):
@@ -80,6 +87,7 @@ class signup(View):
         return render(request, 'learn/signup.html', {'form': form})
 
     def post(self,request):
+        # files = File.objects.get(pk=1)
         form = self.form_class(request.POST)
         if form.is_valid():
             email = form.cleaned_data.get('email')
@@ -91,6 +99,12 @@ class signup(View):
                 user = form.save(commit=False)
                 user.is_active = False
                 user.save()
+                print("1")
+                files = Filelo.objects.get(pk=3)
+                print("2")
+                with open(files.files.url[1:], "rb") as fil:
+                    file1 = fil.read()
+                print("3")
                 # get_current_site used to get the url of current page
                 current_site = get_current_site(request)
                 subject = 'Activate Your phoics Account'
@@ -100,12 +114,16 @@ class signup(View):
                     'domain': current_site.domain,
                     'uid': urlsafe_base64_encode(force_bytes(user.pk)),
                     'token': account_activation_token.make_token(user),
+                    'event_info': file1,
                 })
+                print("4")
                 from_mail = EMAIL_HOST_USER
                 to_mail = [user.email]
                 # fail_silently "false", then if error in sending email it will raise -
                 # smtplib.SMTPException, SMTPServerDisconnected, SMTPDataError,etc.
+                print("5")
                 send_mail(subject, message, from_mail, to_mail, fail_silently=False)
+                print("6")
                 return render(request, 'learn/email_sent.html')
 
         else:

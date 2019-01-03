@@ -32,6 +32,7 @@ ALLOWED_HOSTS = ['*']
 
 # Application definition
 
+
 INSTALLED_APPS = [
     # 'channels',
     'django.contrib.admin',
@@ -44,8 +45,9 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
     'django.contrib.sites',
     'learn.apps.LearnConfig',
-    'conversation',
-    'django_libs',
+    'django_private_chat',
+    # 'conversation',
+    # 'django_libs',
     
 ]
 
@@ -146,7 +148,6 @@ USE_L10N = True
 USE_TZ = True
 
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
@@ -171,3 +172,8 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # CONVERSATION_MESSAGE_FORM = 'learn.forms.MessageForm'
+
+
+CHAT_WS_SERVER_HOST = 'localhost'
+CHAT_WS_SERVER_PORT = 5002
+CHAT_WS_SERVER_PROTOCOL = 'ws'

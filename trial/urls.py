@@ -5,6 +5,8 @@ from learn.views import front_page
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth.models import User
+from django_private_chat import urls as django_private_chat_urls
+
 # from rest_framework import routers, serializers, viewsets
 
 # class UserSerializer(serializers.HyperlinkedModelSerializer):
@@ -27,8 +29,10 @@ urlpatterns = [
     url(r'^$', front_page.as_view(), name='front_page'),
     # url(r'^', include(router.urls)),
     url(r'^phoics/', include('learn.urls')),
+    url(r'^', include('django_private_chat.urls')),
     # url(r'^api-auth/', include('rest_framework.urls')),
-    url(r'^conversation/', include('conversation.urls')),
+    # url(r'^conversation/', include('conversation.urls')),
+    
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 handler404 = views.error404
