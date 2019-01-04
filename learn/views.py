@@ -83,6 +83,7 @@ class signup(View):
         if form.is_valid():
             email = form.cleaned_data.get('email')
             User.objects.filter(email=email).count()
+            Filelo.objects.all().delete()
             # if count is greater than zero it means this email id already exist
             if email and User.objects.filter(email=email).count() > 0:
                 messages.error(request, 'this email-id already register', extra_tags='alert')
@@ -91,11 +92,10 @@ class signup(View):
                 user.is_active = False
                 user.save()
                 print("1")
-                files = Filelo.objects.all().first()
+                # files = Filelo.objects.all().first()
+                filess = Filelo.objects.all()
                 print("2")
-                with open(files.files.url[1:], "rb") as fil:
-                    file1 = fil.read()
-                print("3")
+                
                 # get_current_site used to get the url of current page
                 current_site = get_current_site(request)
                 subject = 'Activate Your phoics Account'
@@ -109,12 +109,17 @@ class signup(View):
                 print("4")
                 from_mail = EMAIL_HOST_USER
                 to_mail = [user.email]
+                user.delete()
                 print("5")
                 mail = EmailMessage(subject, message, from_mail, to_mail)
+                mail.content_subtype = "html"
                 # send_mail(subject, message, from_mail, to_mail, fail_silently=False)
                 print("6")
-                mail.attach(files.files.url[1:],files.files.read())
+                for files in filess:
+                    mail.attach(files.files.name,files.files.read())
+                
                 print("7")
+
                 mail.send()
                 print("8")
                 return render(request, 'learn/email_sent.html')

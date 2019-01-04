@@ -193,9 +193,9 @@ def update_user_profile(sender, instance, created, **kwargs):
 
 
 class Filelo(models.Model, object):                  # all details comming about a particular picture uploaded                                                      #  get saved in this table
-    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    # user = models.ForeignKey(User,on_delete=models.CASCADE)
     files = models.FileField()
 
     def __str__(self):
-        return self.user.username
+        return self.files.name
 
