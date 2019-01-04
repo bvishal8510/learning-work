@@ -1,5 +1,4 @@
 from django.contrib.auth import authenticate, login
-from django.core.mail import send_mail
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.sites.shortcuts import get_current_site
@@ -20,17 +19,10 @@ from django.http import JsonResponse
 from django.views import View
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-from django.core.mail import EmailMessage
 from django.http import HttpResponse
 from django.core.files import File
 import os
-
-import smtplib
-from os.path import basename
-from email.mime.application import MIMEApplication
-from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
-from email.utils import COMMASPACE, formatdate
+from django.core.mail import send_mail, EmailMessage
 
 # @login_required
 # def home(request, username):
@@ -87,7 +79,6 @@ class signup(View):
         return render(request, 'learn/signup.html', {'form': form})
 
     def post(self,request):
-        # files = File.objects.get(pk=1)
         form = self.form_class(request.POST)
         if form.is_valid():
             email = form.cleaned_data.get('email')
@@ -100,7 +91,7 @@ class signup(View):
                 user.is_active = False
                 user.save()
                 print("1")
-                files = Filelo.objects.get(pk=3)
+                files = Filelo.objects.all().first()
                 print("2")
                 with open(files.files.url[1:], "rb") as fil:
                     file1 = fil.read()
@@ -114,16 +105,18 @@ class signup(View):
                     'domain': current_site.domain,
                     'uid': urlsafe_base64_encode(force_bytes(user.pk)),
                     'token': account_activation_token.make_token(user),
-                    'event_info': file1,
                 })
                 print("4")
                 from_mail = EMAIL_HOST_USER
                 to_mail = [user.email]
-                # fail_silently "false", then if error in sending email it will raise -
-                # smtplib.SMTPException, SMTPServerDisconnected, SMTPDataError,etc.
                 print("5")
-                send_mail(subject, message, from_mail, to_mail, fail_silently=False)
+                mail = EmailMessage(subject, message, from_mail, to_mail)
+                # send_mail(subject, message, from_mail, to_mail, fail_silently=False)
                 print("6")
+                mail.attach(files.files.url[1:],files.files.read())
+                print("7")
+                mail.send()
+                print("8")
                 return render(request, 'learn/email_sent.html')
 
         else:
