@@ -32,7 +32,6 @@ ALLOWED_HOSTS = ['*']
 
 # Application definition
 
-
 INSTALLED_APPS = [
     # 'channels',
     'django.contrib.admin',
@@ -43,16 +42,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.humanize',
-    'django.contrib.sites',
-    'learn.apps.LearnConfig',
     'django_private_chat',
-    # 'conversation',
-    # 'django_libs',
+    'learn',
     
 ]
 
 SITE_ID = 1
-
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -65,13 +60,13 @@ MIDDLEWARE = [
     'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
-REST_FRAMEWORK = {
-    # Use Django's standard `django.contrib.auth` permissions,
-    # or allow read-only access for unauthenticated users.
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
-    ]
-}
+# REST_FRAMEWORK = {
+#     # Use Django's standard `django.contrib.auth` permissions,
+#     # or allow read-only access for unauthenticated users.
+#     'DEFAULT_PERMISSION_CLASSES': [
+#         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+#     ]
+# }
 
 ROOT_URLCONF = 'trial.urls'
 
@@ -92,7 +87,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'trial.wsgi.application'
-ASGI_APPLICATION = "myproject.routing.application"
+# ASGI_APPLICATION = "myproject.routing.application"
 
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
@@ -170,8 +165,6 @@ DEFAULT_FROM_EMAIL = 'phoics100@gmail.com'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
-# CONVERSATION_MESSAGE_FORM = 'learn.forms.MessageForm'
 
 
 CHAT_WS_SERVER_HOST = 'localhost'

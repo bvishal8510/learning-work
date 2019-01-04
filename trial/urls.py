@@ -29,10 +29,9 @@ urlpatterns = [
     url(r'^$', front_page.as_view(), name='front_page'),
     # url(r'^', include(router.urls)),
     url(r'^phoics/', include('learn.urls')),
-    url(r'^', include('django_private_chat.urls')),
     # url(r'^api-auth/', include('rest_framework.urls')),
-    # url(r'^conversation/', include('conversation.urls')),
-    
+    url(r'^conversation/', include('conversation.urls')),
+url(r'^', include('django_private_chat.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 handler404 = views.error404
