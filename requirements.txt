@@ -1,5 +1,5 @@
 Cython==0.27.3
-Django==2.0.2
+Django==2.2.13
 django-cleanup==1.0.1
 djangorestframework==3.7.7
 ez-setup==0.9
