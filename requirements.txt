@@ -1,7 +1,7 @@
 Cython==0.27.3
 Django==2.0.2
 django-cleanup==1.0.1
-djangorestframework==3.7.7
+djangorestframework==3.11.2
 ez-setup==0.9
 Markdown==2.6.10
 numpy==1.13.3
